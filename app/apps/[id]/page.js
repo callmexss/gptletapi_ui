@@ -1,13 +1,19 @@
 "use client"
 
 import { useState } from 'react';
+import styles from './AppPage.module.css';
 
 export default function AppPage({ params, searchParams }) {
   const [streamingContent, setStreamingContent] = useState('');
   const [userContent, setUserContent] = useState('');
+  const [copySuccess, setCopySuccess] = useState(false);
 
   const handleContentChange = (e) => {
     setUserContent(e.target.value);
+  };
+
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(streamingContent);
   };
 
   const handleSubmit = async (e) => {
@@ -50,8 +56,9 @@ export default function AppPage({ params, searchParams }) {
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl">
         <h1 className="text-3xl mb-4">{searchParams.name}</h1>
-        <div className="bg-gray-100 p-4 rounded-md mb-4">
+        <div className="bg-gray-100 p-4 rounded-md mb-4 relative">
           <pre className="text-sm overflow-auto whitespace-pre-wrap">{streamingContent}</pre>
+          <button className={styles.copyButton} onClick={handleCopyClick}>Copy</button>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
