@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export default function AppPage({ params }) {
+export default function AppPage({ params, searchParams }) {
   const [streamingContent, setStreamingContent] = useState('');
   const [userContent, setUserContent] = useState('');
 
@@ -49,8 +49,7 @@ export default function AppPage({ params }) {
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl">
-        <h1 className="text-3xl mb-4">App: {params.id}</h1>
-        <h2 className="text-2xl mb-2">Streaming Content:</h2>
+        <h1 className="text-3xl mb-4">{searchParams.name}</h1>
         <div className="bg-gray-100 p-4 rounded-md mb-4">
           <pre className="text-sm overflow-auto whitespace-pre-wrap">{streamingContent}</pre>
         </div>

@@ -33,7 +33,10 @@ export default function Home() {
                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
                   {app.author}
                 </span>
-                <Link href={`/apps/${app.id}`} className="text-blue-500 hover:underline">
+                <Link href={{
+                  pathname: `/apps/${app.id}`,
+                  query: {name: app.name, description: app.description},
+                }} className="text-blue-500 hover:underline">
                   Use
                 </Link>
               </div>
