@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-export default function Home() {
+export default function AppList() {
   const [apps, setApps] = useState([]);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-wrap">
+    <>
       {apps.map((app) => (
         <div key={app.id} className="w-full md:w-1/2 lg:w-1/3 xl:w-1/3 2xl:w-1/4 p-4">
           <div className="bg-white rounded overflow-hidden shadow-lg h-[300px] flex flex-col">
@@ -42,6 +42,6 @@ export default function Home() {
           </div>
         </div>
       ))}
-    </div>
+    </>
   );
 }
