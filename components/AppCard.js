@@ -1,8 +1,39 @@
 "use client"
 
-import styles from './AppCard.module.css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import styles from './AppCard.module.css';
+
+const CodeBlock = ({ node, inline, className, children, ...props }) => {
+  const match = /language-(\w+)/.exec(className || '');
+
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(String(children).replace(/\n$/, ''));
+  };
+
+  return !inline && match ? (
+    <div style={{ position: 'relative' }}>
+      <button
+        onClick={handleCopyClick}
+        className={styles.copyButton} 
+      >
+        Copy
+      </button>
+      <SyntaxHighlighter language={match[1]} PreTag="div" style={docco} {...props}>
+        {String(children).replace(/\n$/, '')}
+      </SyntaxHighlighter>
+    </div>
+  ) : (
+    <code className={className} {...props}>
+      {children}
+    </code>
+  );
+};
+
 
 export default function AppCard({ id, name, description}) {
   const router = useRouter();
@@ -61,14 +92,16 @@ export default function AppCard({ id, name, description}) {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-xl w-full max-w-2xl text-sm md:text-base lg:text-xl">
+    <div className="bg-white py-4 px-2 rounded-lg shadow-xl w-full max-w-2xl text-sm md:text-base lg:text-xl">
       <h1 className="text-3xl font-semibold mb-6">{name}</h1>
       <p className="text-base mb-4">{description}</p>
       <div className="bg-gray-100 p-4 rounded-md mb-4 relative">
         <div className='p-2'>
-            <pre className="text-base font-mono overflow-auto whitespace-pre-wrap">{streamingContent}</pre>
+          <ReactMarkdown components={{ code: CodeBlock }} remarkPlugins={[remarkGfm]}>
+            {streamingContent}
+          </ReactMarkdown>
         </div>
-        <button className={`${styles.copyButton} text-base bg-gray-300 hover:bg-gray-400`} onClick={handleCopyClick}>Copy</button>
+        <button className={`${styles.copyButton} text-base`} onClick={handleCopyClick}>Copy</button>
       </div>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="flex space-x-4">
