@@ -25,7 +25,7 @@ export default function Home() {
             <div className="bg-white rounded overflow-hidden shadow-lg h-[300px] flex flex-col">
               <div className="px-6 py-4 flex-grow">
                 <div className="font-bold text-xl mb-2 truncate">{app.name}</div>
-                <p className="text-gray-700 text-base overflow-hidden overflow-ellipsis whitespace-nowrap">
+                <p className="text-gray-700 text-base overflow-hidden overflow-ellipsis">
                   {app.description}
                 </p>
               </div>
