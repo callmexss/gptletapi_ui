@@ -61,7 +61,7 @@ export default function AppCard({ id, name, description}) {
   };
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl">
+    <div className="bg-white p-4 rounded-lg shadow-xl w-full max-w-2xl text-sm md:text-base lg:text-xl">
       <h1 className="text-3xl font-semibold mb-6">{name}</h1>
       <p className="text-base mb-4">{description}</p>
       <div className="bg-gray-100 p-4 rounded-md mb-4 relative">
