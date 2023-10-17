@@ -32,3 +32,40 @@
 .copy-button:active {
   background-color: rgba(0, 128, 0, 0.8);
 }
+
+.cardBody ul {
+  list-style-type: disc;
+}
+.cardBody ol {
+  list-style-type: decimal;
+}
+
+.cardBody ul, .cardBody ol {
+  padding-left: 1em;
+  list-style-position: inside;
+}
+
+.cardBody li {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.cardBody li p {
+  display: inline;
+}
+
+.cardBody h1 {
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.cardBody p {
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.cardBody pre {
+  line-height: 1.5;
+  padding: 1rem;
+}
