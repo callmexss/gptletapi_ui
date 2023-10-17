@@ -1,5 +1,6 @@
 import NavBar from '../components/NavBar';
 import { Inter } from 'next/font/google'
+import { exo2, orbitron } from './fonts';
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -14,13 +15,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className='bg-orange-50 flex flex-col px-4 py-2 min-h-screen'>
+    <html lang="en" className={`${exo2.variable} ${orbitron.variable}`}>
+      <body className='flex flex-col px-4 py-2 min-h-screen'>
         <header>
           <NavBar />
         </header>
-        {/* <main className="flex min-h-screen flex-col p-24"> */}
-        <main className="grow py-3">
+        <main className={`grow py-3 ${inter.className}`}>
           {children}
         </main>
         <footer className="border-t py-3 text-center text-slate-500 text-xs">
