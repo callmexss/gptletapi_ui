@@ -95,8 +95,8 @@ export default function AppCard({ id, name, description}) {
     <div className="bg-white py-4 px-2 md:p-4 rounded-lg shadow-xl w-full max-w-2xl text-sm md:text-base lg:text-xl">
       <h1 className="text-3xl font-semibold mb-6">{name}</h1>
       <p className="text-base mb-4">{description}</p>
-      <div className={`bg-gray-100 p-4 rounded-md mb-4 relative ${styles.cardBody}`}>
-        <div className="p-2">
+      <div className={`bg-gray-100 p-4 rounded-md mb-4 relative ${styles.cardBody} h-[400px] overflow-auto`}>
+        <div className="p-2 h-full overflow-y-auto">
           <ReactMarkdown components={{ code: CodeBlock }} remarkPlugins={[remarkGfm]}>
             {streamingContent}
           </ReactMarkdown>
@@ -105,23 +105,22 @@ export default function AppCard({ id, name, description}) {
       </div>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="flex space-x-4">
-          <input
-            type="text"
+          <textarea
             value={userContent}
             onChange={handleContentChange}
             placeholder="Enter your content"
-            className="border p-2 rounded w-full flex-grow"
+            className="border p-2 rounded w-full flex-grow h-[120px] overflow-y-auto"
           />
-          <button type="button" onClick={handleClearInput} className="bg-gray-500 hover:bg-gray-600 text-white p-2 rounded w-1/5">
-            Clear
-          </button>
-          <button type="button" onClick={handleGoToHome} className="bg-green-600 hover:bg-green-700 text-white p-2 rounded w-1/5">
-            Back
-          </button>
         </div>
         <div>
-          <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded w-full">
+          <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded w-2/5 mx-2">
             Submit
+          </button>
+          <button type="button" onClick={handleClearInput} className="bg-gray-500 hover:bg-gray-600 text-white p-2 rounded w-1/5 mx-2">
+            Clear
+          </button>
+          <button type="button" onClick={handleGoToHome} className="bg-green-600 hover:bg-green-700 text-white p-2 rounded w-1/5 mx-2">
+            Back
           </button>
         </div>
       </form>
