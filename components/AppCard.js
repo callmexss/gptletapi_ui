@@ -94,7 +94,7 @@ export default function AppCard({ id, name, description}) {
   return (
     <div className="bg-white py-4 px-2 md:p-4 rounded-lg shadow-xl w-full max-w-2xl text-sm md:text-base lg:text-xl">
       <h1 className="text-3xl font-semibold mb-6">{name}</h1>
-      <p className="text-base mb-4">{description}</p>
+      <p className="text-base mb-4 whitespace-pre-wrap">{description}</p>
       <div className={`bg-gray-100 p-4 rounded-md mb-4 relative ${styles.cardBody} h-[400px] overflow-auto`}>
         <div className="p-2 h-full overflow-y-auto">
           <ReactMarkdown components={{ code: CodeBlock }} remarkPlugins={[remarkGfm]}>
@@ -112,7 +112,7 @@ export default function AppCard({ id, name, description}) {
             className="border p-2 rounded w-full flex-grow h-[120px] overflow-y-auto"
           />
         </div>
-        <div>
+        <div className='flex justify-between'>
           <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded w-2/5 mx-2">
             Submit
           </button>
