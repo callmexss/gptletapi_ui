@@ -2,11 +2,12 @@
 
 import { useState } from 'react';
 import styles from './AppPage.module.css';
+import { useRouter } from 'next/navigation';
 
 export default function AppPage({ params, searchParams }) {
+  const router = useRouter();
   const [streamingContent, setStreamingContent] = useState('');
   const [userContent, setUserContent] = useState('');
-  const [copySuccess, setCopySuccess] = useState(false);
 
   const handleContentChange = (e) => {
     setUserContent(e.target.value);
@@ -14,6 +15,14 @@ export default function AppPage({ params, searchParams }) {
 
   const handleCopyClick = () => {
     navigator.clipboard.writeText(streamingContent);
+  };
+
+  const handleClearInput = () => {
+    setUserContent('');
+  };
+
+  const handleGoToHome = () => {
+    router.push("/");
   };
 
   const handleSubmit = async (e) => {
@@ -53,24 +62,34 @@ export default function AppPage({ params, searchParams }) {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl">
-        <h1 className="text-3xl mb-4">{searchParams.name}</h1>
+    <div className="min-h-screen flex justify-center items-center bg-gray-100 p-4">
+      <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl">
+        <h1 className="text-3xl font-semibold mb-6">{searchParams.name}</h1>
         <div className="bg-gray-100 p-4 rounded-md mb-4 relative">
-          <pre className="text-sm overflow-auto whitespace-pre-wrap">{streamingContent}</pre>
-          <button className={styles.copyButton} onClick={handleCopyClick}>Copy</button>
+          <pre className="text-base font-mono overflow-auto whitespace-pre-wrap">{streamingContent}</pre>
+          <button className={`${styles.copyButton} text-sm`} onClick={handleCopyClick}>Copy</button>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            value={userContent}
-            onChange={handleContentChange}
-            placeholder="Enter your content"
-            className="border p-2 rounded w-full"
-          />
-          <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded w-full">
-            Submit
-          </button>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="flex space-x-4">
+            <input
+              type="text"
+              value={userContent}
+              onChange={handleContentChange}
+              placeholder="Enter your content"
+              className="border p-2 rounded w-full flex-grow"
+            />
+            <button type="button" onClick={handleClearInput} className="bg-gray-500 hover:bg-gray-600 text-white p-2 rounded w-1/5">
+              Clear
+            </button>
+            <button type="button" onClick={handleGoToHome} className="bg-green-600 hover:bg-green-700 text-white p-2 rounded w-1/5">
+              Back
+            </button>
+          </div>
+          <div>
+            <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded w-full">
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>
