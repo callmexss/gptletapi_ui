@@ -4,7 +4,6 @@
   right: 2px;
   top: 2px;
   z-index: 1;
-  background: rgba(255, 255, 255, 0.8);
   border: none;
   border-radius: 2px;
   padding: 2px 4px;
@@ -13,5 +12,5 @@
 }
 
 .copyButton:active {
-  background-color: rgba(22, 155, 238, 0.8);
+  background-color: rgba(80, 84, 87, 0.8);
 }

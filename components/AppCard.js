@@ -65,8 +65,10 @@ export default function AppCard({ id, name, description}) {
       <h1 className="text-3xl font-semibold mb-6">{name}</h1>
       <p className="text-base mb-4">{description}</p>
       <div className="bg-gray-100 p-4 rounded-md mb-4 relative">
-        <pre className="text-base font-mono overflow-auto whitespace-pre-wrap">{streamingContent}</pre>
-        <button className={`${styles.copyButton} text-sm`} onClick={handleCopyClick}>Copy</button>
+        <div className='p-2'>
+            <pre className="text-base font-mono overflow-auto whitespace-pre-wrap">{streamingContent}</pre>
+        </div>
+        <button className={`${styles.copyButton} text-base bg-gray-300 hover:bg-gray-400`} onClick={handleCopyClick}>Copy</button>
       </div>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="flex space-x-4">
