@@ -20,8 +20,9 @@ export default function AppList() {
   return (
     <div className='flex flex-wrap'>
       {apps.map((app) => {
-        const truncatedDescription = app.description.length > 100
-          ? `${app.description.substring(0, 100)}...`
+        const limitLength = 50;
+        const truncatedDescription = app.description.length > limitLength
+          ? `${app.description.substring(0, limitLength)}...`
           : app.description;
 
         const descriptionWithNewLines = truncatedDescription.split('\n').map((str, index, array) =>
