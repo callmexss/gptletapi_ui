@@ -24,11 +24,12 @@ export default function RootLayout({ children }) {
           {children}
         </main>
         <footer className="border-t py-3 text-center text-slate-500 text-xs">
-          GPTLet from ChatGPT API by{' '}
+          GPTLet from {' '}
           <a href="https://openai.com/" target="_blank"
             className="text-orange-800 hover:underline">
               OpenAI
           </a>
+          {' '}ChatGPT API by @ershan
         </footer>
       </body>
     </html>
