@@ -16,21 +16,14 @@
 }
 
 /* for code */
-.copy-button {
-  position: absolute;
+.copyCodeButton {
   right: 10px;
-  top: 10px;
-  z-index: 1;
-  background: rgba(255, 255, 255, 0.8);
-  border: none;
   border-radius: 4px;
-  padding: 4px 8px;
-  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.copy-button:active {
-  background-color: rgba(0, 128, 0, 0.8);
+.copyCodeButton:active {
+  background-color: rgba(167, 167, 167, 0.8);
 }
 
 .cardBody ul {

@@ -16,13 +16,15 @@ const CodeBlock = ({ node, inline, className, children, ...props }) => {
   };
 
   return !inline && match ? (
-    <div style={{ position: 'relative' }}>
-      <button
-        onClick={handleCopyClick}
-        className={styles.copyButton} 
-      >
-        Copy
-      </button>
+    <div className='bg-gray-100 rounded-md relative'>
+      <div className='flex items-center relative text-gray-200 bg-gray-800 gizmo:dark:bg-token-surface-primary px-4 py-2 text-xs font-sans justify-between rounded-t-md'>
+        <button
+          onClick={handleCopyClick}
+          className={`${styles.copyCodeButton} text-sm lg:text-base flex ml-auto gizmo:ml-0 gap-2 items-center`}
+        >
+          Copy
+        </button>
+      </div>
       <SyntaxHighlighter language={match[1]} PreTag="div" style={docco} {...props}>
         {String(children).replace(/\n$/, '')}
       </SyntaxHighlighter>
@@ -92,7 +94,7 @@ export default function AppCard({ id, name, description}) {
   };
 
   return (
-    <div className="bg-white py-4 px-2 md:p-4 rounded-lg shadow-xl w-full max-w-2xl text-sm md:text-base lg:text-xl">
+    <div className="bg-white py-4 px-2 md:p-4 rounded-lg shadow-xl w-full max-w-2xl text-sm md:text-sm lg:text-base">
       <h1 className="text-3xl font-semibold mb-6">{name}</h1>
       <p className="text-base mb-4 whitespace-pre-wrap">{description}</p>
       <div className={`bg-gray-100 p-4 rounded-md mb-4 relative ${styles.cardBody} h-[300px] overflow-auto`}>
@@ -101,7 +103,11 @@ export default function AppCard({ id, name, description}) {
             {streamingContent}
           </ReactMarkdown>
         </div>
-        <button className={`${styles.copyButton} text-base`} onClick={handleCopyClick}>Copy</button>
+        <button
+         className={`${styles.copyButton} text-sm lg:text-base`}
+         onClick={handleCopyClick}>
+          Copy
+        </button>
       </div>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="flex space-x-4">
