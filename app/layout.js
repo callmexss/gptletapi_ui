@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
           <NavBar />
         </header>
         <main className={`container mx-auto grow py-8 ${inter.className}`}>
-          <div className='px-4 py-6 md:px-6 lg:py-16'>
+          <div className='px-4 py-4 lg:py-6'>
             {children}
           </div>
         </main>

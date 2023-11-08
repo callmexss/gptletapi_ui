@@ -26,7 +26,7 @@ export default function AppList() {
       </div>
       <div className='flex flex-wrap'>
         {apps.map((app) => {
-          const limitLength = 50;
+          const limitLength = 64;
           const truncatedDescription = app.description.length > limitLength
             ? `${app.description.substring(0, limitLength)}...`
             : app.description;
@@ -41,7 +41,7 @@ export default function AppList() {
           );
 
           return (
-            <div key={app.id} className="w-full sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 2xl:w-1/5 p-2">
+            <div key={app.id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 2xl:w-1/5 p-2">
               <div className="bg-white rounded overflow-hidden shadow-lg h-[300px] flex flex-col">
                 <div className="px-6 py-4 flex-grow">
                   <div className="font-bold text-xl mb-2 truncate">{app.name}</div>

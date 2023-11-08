@@ -26,7 +26,7 @@ export default function GPTList() {
       </div>
       <div className='flex flex-wrap'>
         {gpts.map((gpt) => {
-          const limitLength = 80;
+          const limitLength = 64;
           const truncatedDescription = gpt.description.length > limitLength
             ? `${gpt.description.substring(0, limitLength)}...`
             : gpt.description;
@@ -41,11 +41,11 @@ export default function GPTList() {
           );
 
           return (
-            <div key={gpt.id} className="w-full sm:w-1/2 md:w-1/4 lg:w-1/5 xl:w-1/5 2xl:w-1/5 p-2">
+            <div key={gpt.id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 2xl:w-1/5 p-2">
               <div className="bg-white rounded overflow-hidden shadow-lg h-[300px] flex flex-col">
                 <div className="px-6 py-4 flex-grow">
                   <div className="font-bold text-xl mb-2 truncate">{gpt.name}</div>
-                  <div className='item-center'>
+                  <div className='item-center mb-4'>
                     <img src={gpt.image_url} className='mx-auto w-16 h-16 rounded-full flex-shrink-0 bg-gray-100'></img>
                   </div>
                   <p className="flex text-gray-700 text-sm">

@@ -21,8 +21,8 @@ export default function Home() {
   return (
     <div className="flex flex-wrap">
       <>
-        <AppList/>
         <GPTList/>
+        <AppList/>
       </>
     </div>
   );
