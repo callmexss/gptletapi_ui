@@ -3,6 +3,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import AppList from '@/components/AppList';
+import GPTList from '@/components/GPTList';
 
 export default function Home() {
   const [apps, setApps] = useState([]);
@@ -21,6 +22,7 @@ export default function Home() {
     <div className="flex flex-wrap">
       <>
         <AppList/>
+        <GPTList/>
       </>
     </div>
   );

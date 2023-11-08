@@ -14,6 +14,11 @@ export default function NavBar() {
             Apps
           </NavLink>
         </li>
+        <li className="ml-auto">
+          <NavLink href="/gpts">
+            GPTs
+          </NavLink>
+        </li>
         <li>
           <NavLink href="/about" prefetch={false}>
             About

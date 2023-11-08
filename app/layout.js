@@ -20,8 +20,10 @@ export default function RootLayout({ children }) {
         <header>
           <NavBar />
         </header>
-        <main className={`grow py-3 ${inter.className}`}>
-          {children}
+        <main className={`container mx-auto grow py-8 ${inter.className}`}>
+          <div className='px-4 py-6 md:px-6 lg:py-16'>
+            {children}
+          </div>
         </main>
         <footer className="border-t py-3 text-center text-slate-500 text-xs">
           GPTLet from {' '}

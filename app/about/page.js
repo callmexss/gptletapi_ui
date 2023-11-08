@@ -12,6 +12,9 @@ export default function AboutPage() {
         <p>
           A website to provide small but powerful APPs by leveraging OpenAI ChatGPT API.
         </p>
+        <p>
+          And also we are happy to exploring the new GPTs!
+        </p>
       </div>
     </>
   );
