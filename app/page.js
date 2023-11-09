@@ -19,11 +19,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-wrap">
-      <>
-        <GPTList/>
-        <AppList/>
-      </>
-    </div>
+    <>
+      <GPTList/>
+      <AppList/>
+    </>
   );
 }
