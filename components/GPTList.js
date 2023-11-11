@@ -2,11 +2,48 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import Link from "next/link";
 
 export default function GPTList() {
   const [groupedGPTs, setGroupedGPTs] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [urlInput, setUrlInput] = useState('');
+  const [urlError, setUrlError] = useState('');
+  const [submitMessage, setSubmitMessage] = useState('');
+
+  const isGptsUrl = (url) => {
+    const pattern = /^https:\/\/chat\.openai\.com\/g\/[a-zA-Z0-9-]+$/;
+    return pattern.test(url);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  const handleSubmit = async () => {
+    if (isGptsUrl(urlInput)) {
+      setUrlError('');
+      setSubmitMessage('Your URL is being processed, please wait...');
+
+      try {
+        const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+        await axios.post(`${apiBaseUrl}/process_url/`, { url: urlInput });
+
+        setSubmitMessage('URL successfully submitted. Processing may take some time.');
+      } catch (error) {
+        console.error('Error submitting URL:', error);
+        setSubmitMessage('Error occurred while submitting the URL.');
+      }
+    } else {
+      setUrlError('Invalid URL. Please enter a valid GPTs URL.');
+      setSubmitMessage('');
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,9 +71,34 @@ export default function GPTList() {
 
   return (
     <div className="container mx-auto px-4">
+      <div className='mb-8'>
+        <h2 className='text-2xl sm:text-3xl font-bold text-center mb-4'>Submit Your GPTs URL</h2>
+        <div className='flex flex-col sm:flex-row items-center gap-3'>
+          <input
+            type='text'
+            value={urlInput}
+            onChange={(e) => setUrlInput(e.target.value)}
+            placeholder='https://chat.openai.com/g/...'
+            className='flex-grow border p-2 rounded w-full'
+          />
+          <button onClick={handleSubmit} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+            Submit
+          </button>
+        </div>
+        {urlError && <p className='text-red-500 text-center mt-2'>{urlError}</p>}
+        {submitMessage && <p className='text-green-500 text-center mt-2'>{submitMessage}</p>}
+      </div>
       <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6">
         Find the BEST GPTs for You!
       </h2>
+      <button
+        onClick={scrollToTop}
+        className='fixed right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 rounded-full'
+        title="Back to top"
+        aria-label="Back to top"
+      >
+        <FontAwesomeIcon icon={faArrowUp} />
+      </button>
       <div className="flex flex-wrap justify-center gap-3 mb-8">
         {Object.keys(groupedGPTs).map((category) => (
           <button
