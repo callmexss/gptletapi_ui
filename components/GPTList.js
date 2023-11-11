@@ -62,11 +62,12 @@ export default function GPTList() {
             <h3 className='text-2xl font-bold'>{category}</h3>
             <div className='flex flex-wrap'>
               {groupedGPTs[category].map((gpt) => {
+                const description = gpt.description || '';
                 const limitLength = 64;
                 const truncatedDescription =
-                  gpt.description.length > limitLength
-                    ? `${gpt.description.substring(0, limitLength)}...`
-                    : gpt.description;
+                  description.length > limitLength
+                    ? `${description.substring(0, limitLength)}...`
+                    : description;
 
                 return (
                   <div key={gpt.id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 2xl:w-1/5 p-2">
