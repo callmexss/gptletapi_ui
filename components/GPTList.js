@@ -18,10 +18,11 @@ export default function GPTList() {
 
   useEffect(() => {
     const filtered = searchQuery ? Object.keys(groupedGPTs).reduce((acc, category) => {
-      const filteredGPTs = groupedGPTs[category].filter(gpt =>
-        gpt.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        gpt.description.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      const filteredGPTs = groupedGPTs[category].filter(gpt => {
+        const name = gpt.name ? gpt.name.toLowerCase().includes(searchQuery.toLowerCase()) : false;
+        const description = gpt.description ? gpt.description.toLowerCase().includes(searchQuery.toLowerCase()) : false;
+        return name || description;
+      });
       // Only add the category to the accumulator if there are GPTs after filtering
       if (filteredGPTs.length > 0) {
         acc[category] = filteredGPTs;
@@ -31,6 +32,7 @@ export default function GPTList() {
 
     setFilteredGPTs(filtered);
   }, [searchQuery, groupedGPTs]);
+
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
