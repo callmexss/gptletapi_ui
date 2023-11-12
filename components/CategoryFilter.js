@@ -1,27 +1,20 @@
-import React from 'react';
-
 const CategoryFilter = ({ groupedGPTs, selectedCategory, onSelectCategory }) => {
   return (
-    <div className="flex flex-wrap justify-center gap-3 mb-8">
-      {Object.keys(groupedGPTs).map((category) => (
-        <button
-          key={category}
-          onClick={() => onSelectCategory(category)}
-          className={`py-2 px-3 sm:px-4 text-sm sm:text-lg ${
-            selectedCategory === category
-              ? "bg-blue-500 text-white"
-              : "bg-gray-200 text-blue-700 hover:bg-blue-500 hover:text-white"
-          } rounded transition duration-300 ease-in-out`}
-        >
-          {category} ({groupedGPTs[category].length})
-        </button>
-      ))}
-      <button
-        onClick={() => onSelectCategory(null)}
-        className="py-2 px-3 sm:px-4 text-sm sm:text-lg bg-red-200 text-red-600 hover:bg-red-500 hover:text-white rounded transition duration-300 ease-in-out"
+    <div className="my-4">
+      <label htmlFor="category-select" className="block text-lg font-medium text-gray-700">Categories</label>
+      <select
+        id="category-select"
+        onChange={(e) => onSelectCategory(e.target.value)}
+        value={selectedCategory || ''}
+        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
       >
-        Clear Filter
-      </button>
+        <option value="">All Categories</option>
+        {Object.keys(groupedGPTs).map((category) => (
+          <option key={category} value={category}>
+            {category} ({groupedGPTs[category].length})
+          </option>
+        ))}
+      </select>
     </div>
   );
 };
