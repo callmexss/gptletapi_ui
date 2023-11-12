@@ -1,27 +1,38 @@
 "use client"
 
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import AppList from '@/components/AppList';
+import HeroSection from '@/components/HeroSection';
+import FeatureCard from '@/components/FeatureCard';
 import GPTList from '@/components/GPTList';
 
+const features = [
+  {
+    title: 'Feature One',
+    description: 'Description of feature one.',
+    icon: './favicon.ico',
+  },
+  {
+    title: 'Feature Two',
+    description: 'Description of feature two.',
+    icon: './favicon.ico',
+  },
+
+  {
+    title: 'Feature Three',
+    description: 'Description of feature three.',
+    icon: './favicon.ico',
+  },
+];
+
 export default function Home() {
-  const [apps, setApps] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-      const res = await axios.get(`${apiBaseUrl}/apps/`);
-      setApps(res.data);
-    };
-
-    fetchData();
-  }, []);
-
   return (
     <>
+      <HeroSection />
+      {/* <div className="flex flex-wrap justify-center items-center mb-6">
+        {features.map((feature, index) => (
+          <FeatureCard key={index} {...feature} />
+        ))}
+      </div> */}
       <GPTList/>
-      <AppList/>
     </>
   );
 }

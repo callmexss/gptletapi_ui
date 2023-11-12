@@ -22,7 +22,7 @@ export default function GPTList() {
     <div className="container mx-auto px-4">
       <SubmitURLForm />
       <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6">
-        Find the BEST GPTs for You!
+        GPTs List
       </h2>
       <button
         onClick={scrollToTop}
