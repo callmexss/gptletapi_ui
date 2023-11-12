@@ -41,15 +41,6 @@ export default function GPTList() {
   return (
     <div className="container mx-auto px-4">
       <SubmitURLForm />
-      <div className="my-4">
-        <input
-          type="search"
-          placeholder="Search GPTs..."
-          value={searchQuery}
-          onChange={e => setSearchQuery(e.target.value)}
-          className="w-full p-2 border rounded"
-        />
-      </div>
       <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6">
         GPTs List
       </h2>
@@ -66,6 +57,15 @@ export default function GPTList() {
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
       />
+      <div className="my-4">
+        <input
+          type="search"
+          placeholder="Search GPTs..."
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+          className="w-full p-2 border rounded"
+        />
+      </div>
       {Object.keys(filteredGPTs).map((category) =>
         selectedCategory && category !== selectedCategory ? null : (
           filteredGPTs[category].length > 0 ? ( // Check if the category has GPTs
