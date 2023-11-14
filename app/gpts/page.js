@@ -1,12 +1,9 @@
-"use client"
-
 import GPTList from "@/components/GPTList";
+import { getGPTsData } from "@/hooks/utilityFunctions";
 
-export default function App() {
-
+export default async function GPTListPage() {
+  const groupedGPTs = await getGPTsData();
   return (
-    <>
-      <GPTList/>
-    </>
+    <GPTList groupedGPTs={groupedGPTs} />
   );
 }

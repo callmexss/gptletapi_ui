@@ -3,6 +3,7 @@
 import HeroSection from '@/components/HeroSection';
 import FeatureCard from '@/components/FeatureCard';
 import GPTList from '@/components/GPTList';
+import { getGPTsData } from '@/hooks/utilityFunctions';
 
 const features = [
   {
@@ -23,7 +24,8 @@ const features = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const groupedGPTs = await getGPTsData();
   return (
     <>
       <HeroSection />
@@ -32,7 +34,7 @@ export default function Home() {
           <FeatureCard key={index} {...feature} />
         ))}
       </div> */}
-      <GPTList/>
+      <GPTList groupedGPTs={groupedGPTs}/>
     </>
   );
 }

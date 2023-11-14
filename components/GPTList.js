@@ -1,22 +1,17 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
-import useGPTData from "../hooks/useGPTData";
 import GPTCard from "../components/GPTCard";
 import CategoryFilter from "../components/CategoryFilter";
-import SubmitURLForm from "../components/SubmitURLForm";
 
 const ENABLE_CATEGORY_FEATURE = process.env.NEXT_PUBLIC_ENABLE_CATEGORY;
 
-export default function GPTList() {
+export default function GPTList({ groupedGPTs }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredGPTs, setFilteredGPTs] = useState({});
-  const { groupedGPTs, fetchGPTData } = useGPTData();
-
-  useEffect(() => {
-    fetchGPTData();
-  }, [fetchGPTData]);
 
   useEffect(() => {
     const filtered = Object.keys(groupedGPTs).reduce((acc, category) => {
