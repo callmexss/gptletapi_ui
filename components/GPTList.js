@@ -9,7 +9,7 @@ import CategoryFilter from "../components/CategoryFilter";
 const ENABLE_CATEGORY_FEATURE = process.env.NEXT_PUBLIC_ENABLE_CATEGORY;
 
 export default function GPTList({ groupedGPTs }) {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredGPTs, setFilteredGPTs] = useState({});
 
@@ -21,7 +21,7 @@ export default function GPTList({ groupedGPTs }) {
         return nameMatches || descriptionMatches;
       });
 
-      if (filteredGPTs.length > 0 && (!ENABLE_CATEGORY_FEATURE || selectedCategory === null || category === selectedCategory)) {
+      if (filteredGPTs.length > 0 && (selectedCategory === '' || category === selectedCategory)) {
         acc[category] = filteredGPTs;
       }
 
