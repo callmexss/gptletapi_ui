@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import useFetch from './useFetch';
-import { groupByCategory } from './utilityFunctions'; // path to the utility function
+import { groupByCategory } from './utilityFunctions';
 
 const useGPTData = () => {
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -12,8 +12,6 @@ const useGPTData = () => {
       setGroupedGPTs(groupByCategory(data));
     }
   }, [data]);
-
-  // Handle error cases as needed
 
   return { groupedGPTs, fetchGPTData: fetchData };
 };

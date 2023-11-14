@@ -6,6 +6,8 @@ import GPTCard from "../components/GPTCard";
 import CategoryFilter from "../components/CategoryFilter";
 import SubmitURLForm from "../components/SubmitURLForm";
 
+const ENABLE_CATEGORY_FEATURE = process.env.NEXT_PUBLIC_ENABLE_CATEGORY;
+
 export default function GPTList() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -17,22 +19,22 @@ export default function GPTList() {
   }, [fetchGPTData]);
 
   useEffect(() => {
-    const filtered = searchQuery ? Object.keys(groupedGPTs).reduce((acc, category) => {
+    const filtered = Object.keys(groupedGPTs).reduce((acc, category) => {
       const filteredGPTs = groupedGPTs[category].filter(gpt => {
-        const name = gpt.name ? gpt.name.toLowerCase().includes(searchQuery.toLowerCase()) : false;
-        const description = gpt.description ? gpt.description.toLowerCase().includes(searchQuery.toLowerCase()) : false;
-        return name || description;
+        const nameMatches = gpt.name ? gpt.name.toLowerCase().includes(searchQuery.toLowerCase()) : false;
+        const descriptionMatches = gpt.description ? gpt.description.toLowerCase().includes(searchQuery.toLowerCase()) : false;
+        return nameMatches || descriptionMatches;
       });
-      // Only add the category to the accumulator if there are GPTs after filtering
-      if (filteredGPTs.length > 0) {
+
+      if (filteredGPTs.length > 0 && (!ENABLE_CATEGORY_FEATURE || selectedCategory === null || category === selectedCategory)) {
         acc[category] = filteredGPTs;
       }
+
       return acc;
-    }, {}) : groupedGPTs;
+    }, {});
 
     setFilteredGPTs(filtered);
-  }, [searchQuery, groupedGPTs]);
-
+  }, [searchQuery, groupedGPTs, selectedCategory]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -52,11 +54,13 @@ export default function GPTList() {
       >
         <FontAwesomeIcon icon={faArrowUp} />
       </button>
-      <CategoryFilter
-        groupedGPTs={groupedGPTs}
-        selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
-      />
+      {ENABLE_CATEGORY_FEATURE && (
+        <CategoryFilter
+          groupedGPTs={groupedGPTs}
+          selectedCategory={selectedCategory}
+          onSelectCategory={setSelectedCategory}
+        />
+      )}
       <div className="my-4">
         <input
           type="search"
@@ -66,22 +70,20 @@ export default function GPTList() {
           className="w-full p-2 border rounded"
         />
       </div>
-      {Object.keys(filteredGPTs).map((category) =>
-        selectedCategory && category !== selectedCategory ? null : (
-          filteredGPTs[category].length > 0 ? ( // Check if the category has GPTs
-            <div key={category} className="mb-6">
-              <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">
-                {category} ({filteredGPTs[category].length})
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {filteredGPTs[category].map((gpt) => (
-                  <GPTCard key={gpt.id} gpt={gpt} />
-                ))}
-              </div>
-            </div>
-          ) : null  // If no GPTs, do not render the category
-        )
-      )}
+      {Object.entries(filteredGPTs).map(([category, gpts]) => (
+        <div key={category} className="mb-6">
+          {ENABLE_CATEGORY_FEATURE && (
+            <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">
+              {category} ({gpts.length})
+            </h3>
+          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {gpts.map((gpt) => (
+              <GPTCard key={gpt.id} gpt={gpt} />
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
