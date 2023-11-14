@@ -1,25 +1,21 @@
-import { useState, useCallback } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import useFetch from './useFetch';
+import { groupByCategory } from './utilityFunctions'; // path to the utility function
 
 const useGPTData = () => {
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const { data, error, fetchData } = useFetch(`${apiBaseUrl}/gpts/`);
   const [groupedGPTs, setGroupedGPTs] = useState({});
 
-  const fetchGPTData = useCallback(async () => {
-    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-    try {
-      const { data } = await axios.get(`${apiBaseUrl}/gpts/`);
-      const categories = data.reduce((acc, gpt) => {
-        acc[gpt.category] = acc[gpt.category] || [];
-        acc[gpt.category].push(gpt);
-        return acc;
-      }, {});
-      setGroupedGPTs(categories);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+  useEffect(() => {
+    if (data) {
+      setGroupedGPTs(groupByCategory(data));
     }
-  }, []);
+  }, [data]);
 
-  return { groupedGPTs, fetchGPTData };
+  // Handle error cases as needed
+
+  return { groupedGPTs, fetchGPTData: fetchData };
 };
 
 export default useGPTData;
