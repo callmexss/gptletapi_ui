@@ -26,7 +26,6 @@ export default function GPTList() {
     setNextPageUrl(secureUrl(data.next));
     setTotalGPTs(data.count);
     setGpts(data.results);
-    setNextPageUrl(data.next);
   };
 
   useEffect(() => {
@@ -50,7 +49,6 @@ export default function GPTList() {
       const data = await response.json();
       setNextPageUrl(secureUrl(data.next));
       setGpts(prevGpts => [...prevGpts, ...data.results]);
-      setNextPageUrl(data.next);
     }
   };
 
