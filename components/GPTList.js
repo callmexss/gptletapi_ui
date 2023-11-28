@@ -12,10 +12,9 @@ export default function GPTList() {
   const [nextPageUrl, setNextPageUrl] = useState(null);
 
   const secureUrl = (url) => {
-    const use_https = process.env.NEXT_PUBLIC_API_BASE_URL;
     if (!url) return null;
-    if (use_https) return url.replace('http://', 'https://');
-    return url;
+    if (url.startsWith('https://')) return url;
+    return url.replace('http://', 'https://');
   };
 
   const loadGPTs = async (url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/gpts/?page=1&search=${searchQuery}`) => {
