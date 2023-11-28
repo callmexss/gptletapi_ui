@@ -8,34 +8,30 @@ import GPTCard from "../components/GPTCard";
 export default function GPTList() {
   const [searchQuery, setSearchQuery] = useState('');
   const [gpts, setGpts] = useState([]);
-  const [filteredGPTs, setFilteredGPTs] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalGPTs, setTotalGPTs] = useState(0);
   const [nextPageUrl, setNextPageUrl] = useState(null);
 
-  const loadGPTs = async (url) => {
+  const loadGPTs = async () => {
+    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/gpts/?page=${currentPage}&search=${searchQuery}`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Failed to fetch GPTs: ${response.status}`);
     }
     const data = await response.json();
     setTotalGPTs(data.count);
-    setGpts(prevData => ([...prevData, ...data.results]));
+    setGpts(prevData => currentPage === 1 ? data.results : [...prevData, ...data.results]);
     setNextPageUrl(data.next);
   };
 
   useEffect(() => {
-    loadGPTs(`${process.env.NEXT_PUBLIC_API_BASE_URL}/gpts/?page=1`);
-  }, []);
+    loadGPTs();
+  }, [currentPage, searchQuery]);
 
-  useEffect(() => {
-    const filtered = gpts.filter(gpt => {
-      const nameMatches = gpt.name ? gpt.name.toLowerCase().includes(searchQuery.toLowerCase()) : false;
-      const descriptionMatches = gpt.description ? gpt.description.toLowerCase().includes(searchQuery.toLowerCase()) : false;
-      return nameMatches || descriptionMatches;
-    });
-
-    setFilteredGPTs(filtered);
-  }, [searchQuery, gpts]);
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1); // Reset to first page on new search
+  };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -65,7 +61,7 @@ export default function GPTList() {
           type="search"
           placeholder="Search GPTs..."
           value={searchQuery}
-          onChange={e => setSearchQuery(e.target.value)}
+          onChange={handleSearch}
           className="w-full p-2 border rounded"
         />
       </div>
