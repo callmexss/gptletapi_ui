@@ -25,7 +25,7 @@ const features = [
 ];
 
 export default async function Home() {
-  const groupedGPTs = await getGPTsData();
+  // const groupedGPTs = await getGPTsData();
   return (
     <>
       <HeroSection />
@@ -34,7 +34,8 @@ export default async function Home() {
           <FeatureCard key={index} {...feature} />
         ))}
       </div> */}
-      <GPTList groupedGPTs={groupedGPTs}/>
+      {/* <GPTList groupedGPTs={groupedGPTs}/> */}
+      <GPTList/>
     </>
   );
 }
