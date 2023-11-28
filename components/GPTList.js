@@ -11,12 +11,20 @@ export default function GPTList() {
   const [totalGPTs, setTotalGPTs] = useState(0);
   const [nextPageUrl, setNextPageUrl] = useState(null);
 
+  const secureUrl = (url) => {
+    const use_https = process.env.NEXT_PUBLIC_API_BASE_URL;
+    if (!url) return null;
+    if (use_https) return url.replace('http://', 'https://');
+    return url;
+  };
+
   const loadGPTs = async (url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/gpts/?page=1&search=${searchQuery}`) => {
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Failed to fetch GPTs: ${response.status}`);
     }
     const data = await response.json();
+    setNextPageUrl(secureUrl(data.next));
     setTotalGPTs(data.count);
     setGpts(data.results);
     setNextPageUrl(data.next);
@@ -41,6 +49,7 @@ export default function GPTList() {
         throw new Error(`Failed to fetch more GPTs: ${response.status}`);
       }
       const data = await response.json();
+      setNextPageUrl(secureUrl(data.next));
       setGpts(prevGpts => [...prevGpts, ...data.results]);
       setNextPageUrl(data.next);
     }
