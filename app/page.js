@@ -24,7 +24,7 @@ const features = [
   },
 ];
 
-export default async function Home() {
+export default function Home() {
   // const groupedGPTs = await getGPTsData();
   return (
     <>
