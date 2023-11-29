@@ -1,5 +1,3 @@
-"use client";
-
 import React from 'react';
 import Link from 'next/link';
 
@@ -17,11 +15,15 @@ const GPTCard = ({ gpt }) => {
         </div>
         <p className="text-gray-700 text-sm mb-4 hover:text-gray-900">{gpt.description}</p>
         <Link 
-         className="text-blue-500 hover:text-white inline-block bg-blue-100 hover:bg-blue-500 rounded-full px-4 py-1 transition duration-300 ease-in-out shadow hover:shadow-md"
          href={gpt.link_url}
-         passHref
+         className="text-blue-500 hover:text-white inline-block bg-blue-100 hover:bg-blue-500 rounded-full px-4 py-1 transition duration-300 ease-in-out shadow hover:shadow-md"
         >
           Use
+        </Link>
+        <Link href={{ pathname: `gpts/${gpt.id}` }}
+          className="text-blue-500 hover:text-white inline-block bg-blue-100 hover:bg-blue-500 rounded-full px-4 py-1 ml-2 transition duration-300 ease-in-out shadow hover:shadow-md"
+        >
+          Details
         </Link>
       </div>
     </div>
