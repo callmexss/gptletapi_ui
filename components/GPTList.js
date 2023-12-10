@@ -29,8 +29,15 @@ export default function GPTList() {
       throw new Error(`Failed to fetch GPTs: ${response.status}`);
     }
     const data = await response.json();
-    console.log(secureUrl(data.next));
-    setNextPageUrl(secureUrl(data.next));
+
+    if (data.next) {
+      console.log(secureUrl(data.next));
+      setNextPageUrl(secureUrl(data.next));
+    } else {
+      setNextPageUrl(null);
+      console.log("No more pages available.");
+    }
+
     setTotalGPTs(data.count);
     setGpts(data.results);
   };
