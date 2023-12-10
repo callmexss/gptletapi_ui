@@ -4,6 +4,7 @@ import HeroSection from '@/components/HeroSection';
 import FeatureCard from '@/components/FeatureCard';
 import GPTList from '@/components/GPTList';
 import { getGPTsData } from '@/hooks/utilityFunctions';
+import SubmitURLForm from '@/components/SubmitURLForm';
 
 const features = [
   {
@@ -35,6 +36,7 @@ export default function Home() {
         ))}
       </div> */}
       {/* <GPTList groupedGPTs={groupedGPTs}/> */}
+      <SubmitURLForm/>
       <GPTList/>
     </>
   );
